@@ -174,6 +174,10 @@ class SorceryController < ApplicationController
     login_at(:battlenet)
   end
 
+  def login_at_test_boxyhqsaml
+    login_at(:boxyhqsaml)
+  end
+  
   def test_login_from_twitter
     if (@user = login_from(:twitter))
       redirect_to 'bla', notice: 'Success!'
@@ -282,6 +286,14 @@ class SorceryController < ApplicationController
 
   def test_login_from_auth0
     if (@user = login_from(:auth0))
+      redirect_to 'bla', notice: 'Success!'
+    else
+      redirect_to 'blu', alert: 'Failed!'
+    end
+  end
+
+  def test_login_from_boxyhqsaml
+    if (@user = login_from(:boxyhqsaml))
       redirect_to 'bla', notice: 'Success!'
     else
       redirect_to 'blu', alert: 'Failed!'
@@ -420,6 +432,14 @@ class SorceryController < ApplicationController
 
   def test_return_to_with_external_auth0
     if (@user = login_from(:auth0))
+      redirect_back_or_to 'bla', notice: 'Success!'
+    else
+      redirect_to 'blu', alert: 'Failed!'
+    end
+  end
+
+  def test_return_to_with_external_boxyhqsaml
+    if (@user = login_from(:boxyhqsaml))
       redirect_back_or_to 'bla', notice: 'Success!'
     else
       redirect_to 'blu', alert: 'Failed!'

@@ -164,7 +164,7 @@ describe SorceryController, active_record: true, type: :controller do
       expect(flash[:notice]).to eq 'Success!'
     end
 
-    %i[github google liveid vk salesforce paypal slack wechat microsoft instagram auth0 discord battlenet].each do |provider|
+    %i[github google liveid vk salesforce paypal slack wechat microsoft instagram auth0 discord battlenet boxyhqsaml].each do |provider|
       describe "with #{provider}" do
         it 'login_at redirects correctly' do
           get :"login_at_test_#{provider}"
@@ -228,6 +228,7 @@ describe SorceryController, active_record: true, type: :controller do
           line
           discord
           battlenet
+          boxyhqsaml
         ]
       )
 
@@ -278,6 +279,10 @@ describe SorceryController, active_record: true, type: :controller do
       sorcery_controller_external_property_set(:battlenet, :key, '4c43d4862c774ca5bbde89873bf0d338')
       sorcery_controller_external_property_set(:battlenet, :secret, 'TxY7IwKOykACd8kUxPyVGTqBs44UBDdX')
       sorcery_controller_external_property_set(:battlenet, :callback_url, 'http://blabla.com')
+      sorcery_controller_external_property_set(:boxyhqsaml, :key, 'eYVNBjBDi33aa9GkA3w')
+      sorcery_controller_external_property_set(:boxyhqsaml, :secret, 'XpbeSdCoaKSmQGSeokz5qcUATClRW5u08QWNfv71N8')
+      sorcery_controller_external_property_set(:boxyhqsaml, :callback_url, 'http://blabla.com')
+      sorcery_controller_external_property_set(:boxyhqsaml, :site, 'https://sorcery-test.boxyhq.com')
     end
 
     after(:each) do
@@ -300,7 +305,7 @@ describe SorceryController, active_record: true, type: :controller do
       expect(ActionMailer::Base.deliveries.size).to eq old_size
     end
 
-    %i[github google liveid vk salesforce paypal wechat microsoft instagram auth0 discord battlenet].each do |provider|
+    %i[github google liveid vk salesforce paypal wechat microsoft instagram auth0 discord battlenet boxyhqsaml].each do |provider|
       it "does not send activation email to external users (#{provider})" do
         old_size = ActionMailer::Base.deliveries.size
         create_new_external_user provider
@@ -498,6 +503,7 @@ describe SorceryController, active_record: true, type: :controller do
         line
         discord
         battlenet
+        boxyhqsaml
       ]
     )
     sorcery_controller_external_property_set(:facebook, :key, 'eYVNBjBDi33aa9GkA3w')
@@ -546,6 +552,10 @@ describe SorceryController, active_record: true, type: :controller do
     sorcery_controller_external_property_set(:battlenet, :key, '4c43d4862c774ca5bbde89873bf0d338')
     sorcery_controller_external_property_set(:battlenet, :secret, 'TxY7IwKOykACd8kUxPyVGTqBs44UBDdX')
     sorcery_controller_external_property_set(:battlenet, :callback_url, 'http://blabla.com')
+    sorcery_controller_external_property_set(:boxyhqsaml, :key, 'eYVNBjBDi33aa9GkA3w')
+    sorcery_controller_external_property_set(:boxyhqsaml, :secret, 'XpbeSdCoaKSmQGSeokz5qcUATClRW5u08QWNfv71N8')
+    sorcery_controller_external_property_set(:boxyhqsaml, :callback_url, 'http://blabla.com')
+    sorcery_controller_external_property_set(:boxyhqsaml, :site, 'https://sorcery-test.boxyhq.com')
   end
 
   def provider_url(provider)
@@ -563,6 +573,7 @@ describe SorceryController, active_record: true, type: :controller do
       auth0: "https://sorcery-test.auth0.com/authorize?client_id=#{::Sorcery::Controller::Config.auth0.key}&display&redirect_uri=http%3A%2F%2Fblabla.com&response_type=code&scope=openid+profile+email&state",
       discord: "https://discordapp.com/api/oauth2/authorize?client_id=#{::Sorcery::Controller::Config.discord.key}&display&redirect_uri=http%3A%2F%2Fblabla.com&response_type=code&scope=identify&state",
       battlenet: "https://eu.battle.net/oauth/authorize?client_id=#{::Sorcery::Controller::Config.battlenet.key}&display&redirect_uri=http%3A%2F%2Fblabla.com&response_type=code&scope=openid&state"
+      boxyhqsaml: "https://sorcery-test.boxyhq.com/authorize?client_id=#{::Sorcery::Controller::Config.boxyhqsaml.key}&display&redirect_uri=http%3A%2F%2Fblabla.com&response_type=code&state"
     }[provider]
   end
 end

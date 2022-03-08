@@ -241,6 +241,14 @@ Rails.application.config.sorcery.configure do |config|
   # config.battlenet.secret = "xxxxxx"
   # config.battlenet.callback_url = "http://localhost:3000/oauth/callback?provider=battlenet"
   # config.battlenet.scope = "openid"
+
+  # For BoxyHQ SAML, site is required and should match your self-hosted domain.
+  #
+  # config.boxyhqsaml.key = ""
+  # config.boxyhqsaml.secret = ""
+  # config.boxyhqsaml.callback_url = "https://0.0.0.0:3000/oauth/callback?provider=boxyhqsaml"
+  # config.boxyhqsaml.site = "http://localhost:5225"
+  #
   # --- user config ---
   config.user_config do |user|
     # -- core --
