@@ -7,7 +7,7 @@ module Sorcery
     #   config.boxyhqsaml.secret = <secret>
     #   ...
     #
-    class Linkedin < Base
+    class BoxyHQSAML < Base
       include Protocols::Oauth2
 
       attr_accessor :auth_url, :token_url, :user_info_url
