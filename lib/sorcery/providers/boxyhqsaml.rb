@@ -18,7 +18,7 @@ module Sorcery
         @site          = 'http://localhost:5225'
         @auth_url      = '/api/oauth/authorize'
         @token_url     = '/api/oauth/token'
-        @user_info_url = '/api/oauth/userinfo'
+        @user_info_url = 'http://localhost:5225/api/oauth/userinfo'
         @state         = SecureRandom.hex(16)
       end
 
