@@ -18,12 +18,12 @@ module Sorcery
         @site          = 'http://localhost:5225'
         @auth_url      = '/api/oauth/authorize'
         @token_url     = '/api/oauth/token'
-        @user_info_url = 'http://localhost:5225/api/oauth/userinfo'
+        @user_info_url = '/api/oauth/userinfo'
         @state         = SecureRandom.hex(16)
       end
 
       def get_user_hash(access_token)
-        response = access_token.get(user_info_url)
+        response = access_token.get(site + user_info_url)
 
         auth_hash(access_token).tap do |h|
           h[:user_info] = JSON.parse(response.body)
